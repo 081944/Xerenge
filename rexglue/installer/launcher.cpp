@@ -291,6 +291,10 @@ std::vector<std::string> Prepare(const std::filesystem::path& dir, const Config&
 
   // Fullscreen unless windowed; the keyboard as a pad with its keybind_* lines.
   args.push_back(conf.Is("windowed", "true") ? "--no-fullscreen" : "--fullscreen");
+  for (const char* size : {"window_width", "window_height"}) {
+    if (conf.Has(size)) args.push_back(std::string("--") + size + "=" + conf.Get(size));
+  }
+  if (conf.Is("audio_mute", "true")) args.push_back("--audio_mute=true");
   if (conf.Is("keyboard", "true")) {
     args.push_back("--mnk_mode=true");
     if (conf.Has("keyboard_player")) {

@@ -64,6 +64,20 @@ fi
 echo "== generating the code"
 (cd "$project" && "$codegen" codegen burnout_manifest.toml)
 
+# A shader cache belongs to the executable it was extracted from. Switching
+# territory in the same checkout must not silently reuse another disc's cache.
+game_root=$(sed -n 's/^game_root *= *"\(.*\)"/\1/p' "$project/burnout_manifest.toml" | head -1)
+if command -v sha256sum >/dev/null 2>&1; then
+    title_hash=$(cd "$project" && sha256sum "$game_root/default.xex" | cut -d ' ' -f 1)
+else
+    title_hash=$(cd "$project" && shasum -a 256 "$game_root/default.xex" | cut -d ' ' -f 1)
+fi
+previous_hash=$(cat "$project/generated/title.sha256" 2>/dev/null || true)
+if [ "$previous_hash" != "$title_hash" ]; then
+    rm -f "$project/generated/shader_cache.cpp" "$project/generated/shader_cache_runtime.cpp"
+    printf '%s\n' "$title_hash" > "$project/generated/title.sha256"
+fi
+
 # The title's shaders, translated from this copy of the game: the renderer
 # links them in, so this comes before configuring. They are the game's own
 # code, which is why they are made here and not kept in the repository.

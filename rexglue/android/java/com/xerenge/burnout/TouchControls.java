@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.InputDevice;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -188,8 +189,18 @@ final class TouchControls extends View implements InputManager.InputDeviceListen
                     continue;
                 }
                 int sources = device.getSources();
-                if ((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD
-                        || (sources & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK) {
+                // Some phone sensors (including Goodix's gf_input) advertise
+                // SOURCE_GAMEPAD through Generic.kl but have no usable pad.
+                // Require joystick axes or at least two face buttons before
+                // hiding the controls. Button-only controllers still qualify.
+                boolean[] faceKeys = device.hasKeys(KeyEvent.KEYCODE_BUTTON_A,
+                        KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BUTTON_X, KeyEvent.KEYCODE_BUTTON_Y);
+                int faceCount = 0;
+                for (boolean present : faceKeys) if (present) ++faceCount;
+                boolean joystick = (sources & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK
+                        && !device.getMotionRanges().isEmpty();
+                if (joystick || ((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD
+                        && faceCount >= 2)) {
                     found = device.getName();
                     break;
                 }

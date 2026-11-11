@@ -358,16 +358,23 @@ uint32_t Text(uint8_t* base, const char* key) {
 // the done flag - 53 + the slot's offset).
 REX_HOOK_RAW(sub_8210E1F0) {
   struct GameFont {
-    uint32_t path;  // the game's file name, in its image
+    const char* path;
     uint32_t slot;  // where the font's buffer is kept
   };
   static constexpr GameFont kFonts[] = {
-      {0x82011A80, 24}, {0x82011A64, 28}, {0x82011A40, 36}, {0x82011A24, 32}};
+      {"language/fonts/big.bin", 24}, {"language/fonts/small.bin", 28},
+      {"language/fonts/bigdistressed.bin", 36}, {"language/fonts/digital.bin", 32}};
+  const char* game_file = reinterpret_cast<const char*>(xerenge::GuestPointer(base, ctx.r4.u32));
+#if defined(XERENGE_GAME_KOREA)
+  if (xerenge::mods::Lower(game_file).find("language/fonts/") != std::string::npos) {
+    REXLOG_INFO("language: loading font {} (buffer {:08X}, size {})", game_file,
+                ctx.r6.u32, ctx.r7.u32);
+  }
+#endif
   for (const GameFont& font : kFonts) {
-    if (ctx.r4.u32 != font.path) continue;
+    if (xerenge::mods::Lower(game_file) != font.path) continue;
     // Made at the start (PrepareAtStart), before the game's files were
     // mounted: they are listed then, and a file made later is not found.
-    const char* game_file = reinterpret_cast<const char*>(xerenge::GuestPointer(base, font.path));
     const auto mine = xerenge::mods::g_made.find(xerenge::mods::Lower(game_file));
     if (mine == xerenge::mods::g_made.end()) break;
     std::error_code ec;

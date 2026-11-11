@@ -35,6 +35,9 @@
 #include "guest_memory.h"
 
 REXCVAR_DECLARE(std::string, game_data_root);
+#if defined(XERENGE_GAME_KOREA)
+REXCVAR_DECLARE(uint32_t, user_language);
+#endif
 
 extern "C" void __imp__sub_8210D8F0(PPCContext& __restrict, uint8_t*);
 extern "C" void __imp__sub_8210FA20(PPCContext& __restrict, uint8_t*);
@@ -46,7 +49,11 @@ int PresetLanguage() {
   static const int language = [] {
     const char* text = std::getenv("XERENGE_LANGUAGE");
     if (text == nullptr || *text == '\0') {
+#if defined(XERENGE_GAME_KOREA)
+      return 8;  // First start: the Korean disc's own Traditional Chinese.
+#else
       return -1;
+#endif
     }
     char* end = nullptr;
     const long value = std::strtol(text, &end, 10);
@@ -84,7 +91,7 @@ std::filesystem::path Find(const std::filesystem::path& directory, const std::st
 // Whether this copy of the disc has the string file of language n.
 bool DiscHasLanguage(int language) {
   static const char* const kSuffixes[] = {"UK", "US", "Ja", "Ge", "Fr", "Sp", "It",
-                                          "Ko", "US", "US", "Du", "Sw", "Fi", "Da"};
+                                          "Ko", "Tc", "US", "Du", "Sw", "Fi", "Da"};
   if (language >= int(std::size(kSuffixes))) {
     return false;
   }
@@ -115,6 +122,24 @@ int UsablePresetLanguage() {
 }
 
 }  // namespace
+
+#if defined(XERENGE_GAME_KOREA)
+// This SKU chooses both its text and its CJK font filenames from XGetLanguage.
+// ReXGlue's default implementation always returns English, independently of
+// the stored in-game language. Supply the selected native console language at
+// the title's import instead, keeping the shared SDK unchanged.
+REX_HOOK_RAW(__imp__XGetLanguage) {
+  const int preset = UsablePresetLanguage();
+  const uint32_t requested = preset >= 0 ? uint32_t(preset) : REXCVAR_GET(user_language);
+  const uint32_t language = requested == 7 || requested == 8 ? requested : 1;
+  ctx.r3.u64 = language;
+  static bool logged = false;
+  if (!logged) {
+    REXLOG_INFO("language: Korean SKU console language {}", language);
+    logged = true;
+  }
+}
+#endif
 
 // CB4GamertagManager::CheckForStoredLanguage(this) -> bool.
 REX_HOOK_RAW(sub_8210D8F0) {

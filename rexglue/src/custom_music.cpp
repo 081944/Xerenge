@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
+#include <fstream>
 #include <atomic>
 #include <chrono>
 #include <memory>
@@ -104,13 +105,12 @@ std::string Lower(std::string text) {
 // The soundtrack's songs: its object's data, or - before the object is set,
 // when the menus' first song is already playing and its names are read - the
 // data's own place, once the game has filled it.
-constexpr uint32_t kSoundtrackData = 0x8268748C;
-
 uint32_t SoundtrackData(uint8_t* base) {
   if (const uint32_t soundtrack = Load32(base, kSoundtrack)) {
     return Load32(base, soundtrack);
   }
-  return Load32(base, kSoundtrackData + kCount) != 0 ? kSoundtrackData : 0;
+  const uint32_t data = xerenge::music::PlaybackState();
+  return data && Load32(base, data + kCount) != 0 ? data : 0;
 }
 
 // --- a song's tags ----------------------------------------------------------
@@ -459,6 +459,22 @@ void PadFilter(uint32_t user, uint16_t& buttons, uint8_t& left_trigger, uint8_t&
   if (user != 0) {
     return;
   }
+#if defined(XERENGE_TEST_INPUT)
+  // Only the guest pad is changed; no OS input or foreground activation.
+  if (const char* file = std::getenv("XERENGE_TEST_PAD_FILE")) {
+    static Clock::time_point next{};
+    static uint16_t scripted = 0;
+    const auto now = Clock::now();
+    if (now >= next) {
+      unsigned mask = 0;
+      std::ifstream input(file);
+      if (input >> std::hex >> mask) scripted = uint16_t(mask);
+      else scripted = 0;
+      next = now + std::chrono::milliseconds(16);
+    }
+    buttons = scripted;
+  }
+#endif
   const uint16_t shoulders = buttons & (kLB | kRB);
   const uint16_t down = shoulders & ~was;
   was = shoulders;
@@ -532,6 +548,9 @@ void Scan() {
   REXLOG_INFO("music: {} song(s) in {}{}", g_files.size(), g_dir.string(),
               pages > 1 ? fmt::format(", {} pages of {} (LB/RB in Song Manager)", pages, kSlots)
                         : std::string());
+#if defined(XERENGE_TEST_INPUT)
+  if (std::getenv("XERENGE_TEST_PAD_FILE")) rex::kernel::xam::SetPadFilter(PadFilter);
+#endif
   if (g_tracks.empty()) {
     return;
   }

@@ -51,6 +51,7 @@ T* GuestPtr(uint32_t guest_address) {
   return memory->TranslateVirtual<T*>(guest_address);
 }
 
+#if !defined(XERENGE_GAME_KOREA)
 void CopyDispatchTable(uint32_t device_guest, uint32_t table_addr, uint32_t entries,
                        uint32_t dispatch_offset, uint32_t default_offset) {
   const auto* table = GuestPtr<const rex::be_u32>(table_addr);
@@ -106,6 +107,8 @@ void SeedDeviceRenderState(uint32_t device_guest) {
   REXLOG_INFO("plume: Direct3D_CreateDevice -> guest device {:08X}", device_guest);
   return 0;
 }
+
+#endif
 
 [[maybe_unused]] void PlumeResetDevice(uint32_t device_guest, uint32_t params_guest) {
   auto* params = GuestPtr<rex::be_u32>(params_guest);

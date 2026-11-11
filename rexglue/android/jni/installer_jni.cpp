@@ -27,8 +27,11 @@ constexpr const char* kRetailSha256Eu =
     "34c1bd4d549c2c53f29d814fa5e5d1c04c533c5ca0c39e57b6c2538f44ff59b4";
 constexpr const char* kRetailSha256Us =
     "7abf689f52b70666ba92052bd157cfcae9ed6290dae298fbf639baa1d169f92b";
+constexpr const char* kRetailSha256Kr =
+    "94ecd97fe1478e099e747a72e00da1e84cc829b7ae80a815283134884ee49849";
 constexpr int64_t kImageFilesEu = 832;
 constexpr int64_t kImageFilesUs = 803;
+constexpr int64_t kImageFilesKr = 956;
 
 std::string ToHex(const uint8_t digest[32]) {
   static const char hex[] = "0123456789abcdef";
@@ -96,9 +99,11 @@ extern "C" JNIEXPORT jstring JNICALL Java_com_xerenge_burnout_InstallerActivity_
         progress.Report(2, kImageFilesEu, 0);
       } else if (hex == kRetailSha256Us) {
         progress.Report(2, kImageFilesUs, 0);
+      } else if (hex == kRetailSha256Kr) {
+        progress.Report(2, kImageFilesKr, 0);
       } else {
         return env->NewStringUTF(
-            "this is not a retail Burnout Revenge disc image, European or American (the checksum "
+            "this is not a supported European, American or Korean Burnout Revenge disc image (the checksum "
             "does not match)");
       }
     }

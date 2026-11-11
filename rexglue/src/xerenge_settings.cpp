@@ -158,6 +158,13 @@ const std::vector<Setting>& Settings() {
                      {{"ASK AT START", ""}, {"ENGLISH", "0"}, {"ENGLISH (US)", "1"}, {"ESPANOL", "5"},
                       {"NEDERLANDS", "10"}, {"SVENSKA", "11"}, {"SUOMI", "12"}},
                      1};
+#if defined(XERENGE_GAME_KOREA)
+    language.options = {{"ENGLISH", "1"}, {"TRADITIONAL CHINESE", "8"}, {"KOREAN", "7"}};
+    language.fallback = 1;  // Traditional Chinese until a native choice is saved.
+#endif
+    // Native language changes reload both strings and the language's fonts.
+    // The restart prompt applies the choice through the normal startup path.
+    language.restart = true;
     // The localisation mods after the game's languages, by their names, each
     // language = its folder (mods.h); under one the game runs in English.
     const size_t game_languages = language.options.size();
@@ -170,6 +177,7 @@ const std::vector<Setting>& Settings() {
       language.options.push_back({names.back().c_str(), folders.back().c_str()});
     }
     if (language.options.size() > game_languages) {
+      language.restart = false;
       // No language at all: the first mod (mods.h).
       language.fallback = int(game_languages);
       language.set = [game_languages](int option) {
@@ -187,7 +195,6 @@ const std::vector<Setting>& Settings() {
         }
       };
     }
-    language.restart = false;  // its set() says when one is needed
     s.push_back(language);
 
     s.push_back({10, kGraphics, "KEEP 16:9", "aspect_16_9", OffOn(), 1});
@@ -460,6 +467,24 @@ namespace xerenge::settings {
 
 void ApplyAtStart() {
   mods::PrepareAtStart();
+#if defined(XERENGE_GAME_KOREA)
+  // Use the existing in-game language setting. A fresh Korean installation
+  // defaults to Traditional Chinese; an explicitly saved native choice wins,
+  // including when the host executable is started without its launcher.
+  std::string native_language = ConfString("language", "");
+  if (native_language.empty()) {
+    const char* preset = std::getenv("XERENGE_LANGUAGE");
+    native_language = preset && *preset ? preset : "8";
+  }
+  if (native_language != "1" && native_language != "7" && native_language != "8") {
+    native_language = "8";
+  }
+#if defined(_WIN32)
+  _putenv_s("XERENGE_LANGUAGE", native_language.c_str());
+#else
+  setenv("XERENGE_LANGUAGE", native_language.c_str(), 1);
+#endif
+#endif
   // Under a localisation mod the game's language is English, whatever was
   // chosen before: what the mod has not translated reads in English. The
   // European disc's is EN-GB (0), the American's its only one (1).

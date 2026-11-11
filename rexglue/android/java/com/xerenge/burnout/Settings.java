@@ -121,9 +121,25 @@ final class Settings {
      */
     static final String XEX_SHA256_US =
             "5258c75d9ae649ed4fb71d4e2fe8808545db16092cfe764ea1a2504f5aae2e2d";
+    static final String XEX_SHA256_KR =
+            "a847b760d87c5a5403f1db2913383de1c84537ca70e2714c04024c835ef3fcd1";
 
     /** Whether the extracted game is the American release. */
     static boolean usGame(Context context) {
+        return hasExecutableHash(context, XEX_SHA256_US);
+    }
+
+    static boolean koreanGame(Context context) {
+        return hasExecutableHash(context, XEX_SHA256_KR);
+    }
+
+    static String[][] languages(Context context) {
+        return koreanGame(context) ? new String[][] {
+            {"English", "1"}, {"繁體中文", "8"}, {"한국어", "7"}
+        } : LANGUAGES;
+    }
+
+    private static boolean hasExecutableHash(Context context, String expected) {
         try (FileInputStream in = new FileInputStream(new File(gameDir(context), "default.xex"))) {
             MessageDigest sha = MessageDigest.getInstance("SHA-256");
             byte[] chunk = new byte[1 << 20];
@@ -134,7 +150,7 @@ final class Settings {
             for (byte b : sha.digest()) {
                 hex.append(String.format("%02x", b & 0xff));
             }
-            return XEX_SHA256_US.contentEquals(hex);
+            return expected.contentEquals(hex);
         } catch (Exception error) {
             return false;
         }
@@ -142,7 +158,7 @@ final class Settings {
 
     /** The game's library for the extracted release: "main_eu" or "main_us". */
     static String gameLibrary(Context context) {
-        return usGame(context) ? "main_us" : "main_eu";
+        return koreanGame(context) ? "main_kr" : usGame(context) ? "main_us" : "main_eu";
     }
 
     static boolean installed(Context context) {

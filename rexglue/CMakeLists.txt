@@ -5,8 +5,16 @@
 cmake_minimum_required(VERSION 3.25)
 project(burnout LANGUAGES CXX)
 
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/burnout_manifest.toml" burnout_manifest)
+set(korea_default OFF)
+if(burnout_manifest MATCHES "functions_kr.toml")
+    set(korea_default ON)
+endif()
+set(XERENGE_GAME_KOREA ${korea_default} CACHE BOOL "Korean executable selected by the manifest" FORCE)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+option(XERENGE_TEST_INPUT "Enable process-local scripted gamepad input for background tests" OFF)
 
 # Burnout's code has no guest SEH scopes (generate_exception_handlers is off),
 # so the recompiled code needs no asynchronous EH on Windows - which only held
@@ -187,7 +195,11 @@ set(XERENGE_SHADER_SOURCE_INFO_CPP "${CMAKE_CURRENT_BINARY_DIR}/shader_source_in
 set(XERENGE_SHADER_SOURCE_INFO_GEN shader_source_info_gen)
 if(CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSSCOMPILING_EMULATOR)
     find_program(XERENGE_HOST_CXX NAMES c++ clang++ g++ NO_CMAKE_FIND_ROOT_PATH REQUIRED)
-    set(XERENGE_SHADER_SOURCE_INFO_GEN "${CMAKE_CURRENT_BINARY_DIR}/host/shader_source_info_gen")
+    set(host_executable_suffix "")
+    if(CMAKE_HOST_WIN32)
+        set(host_executable_suffix ".exe")
+    endif()
+    set(XERENGE_SHADER_SOURCE_INFO_GEN "${CMAKE_CURRENT_BINARY_DIR}/host/shader_source_info_gen${host_executable_suffix}")
     add_custom_command(
         OUTPUT "${XERENGE_SHADER_SOURCE_INFO_GEN}"
         COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/host"
@@ -391,6 +403,9 @@ add_executable(ealobby tools/ealobby/main.cpp)
 target_link_libraries(ealobby PRIVATE ealobby-core)
 # The game hosts a lobby itself when it finds none on the LAN (online_lobby.cpp).
 target_link_libraries(burnout PRIVATE ealobby-core)
+if(XERENGE_TEST_INPUT)
+    target_compile_definitions(burnout PRIVATE XERENGE_TEST_INPUT=1)
+endif()
 
 # xdis: a development disassembler for the guest image (tools/xdis), built
 # only where capstone is installed. The game does not need it.
@@ -400,4 +415,36 @@ if(CAPSTONE_LIBRARY AND CAPSTONE_INCLUDE_DIR)
     add_executable(xdis tools/xdis/main.cpp)
     target_include_directories(xdis PRIVATE "${CAPSTONE_INCLUDE_DIR}")
     target_link_libraries(xdis PRIVATE "${CAPSTONE_LIBRARY}")
+endif()
+
+if(XERENGE_GAME_KOREA)
+    if(ANDROID)
+        # The main library must bind its XGetLanguage override locally even
+        # though Android loads the shared SDK before SDL's main library.
+        target_link_options(burnout PRIVATE "LINKER:-Bsymbolic-functions")
+    endif()
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    set(korean_sources "${CMAKE_CURRENT_BINARY_DIR}/korea-src")
+    file(GLOB_RECURSE korean_inputs CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
+    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${korean_inputs}
+        "${CMAKE_CURRENT_SOURCE_DIR}/korea-addresses.json"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/prepare-korea-sources.py")
+    execute_process(
+        COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/prepare-korea-sources.py" "${korean_sources}"
+        COMMAND_ERROR_IS_FATAL ANY)
+    foreach(region_target burnout rexgpu-plume)
+        get_target_property(region_sources ${region_target} SOURCES)
+        set(translated_sources "")
+        foreach(source IN LISTS region_sources)
+            if(source MATCHES "^src/(.*)$")
+                set(source "${korean_sources}/${CMAKE_MATCH_1}")
+            elseif(source MATCHES "^${CMAKE_CURRENT_SOURCE_DIR}/src/(.*)$")
+                set(source "${korean_sources}/${CMAKE_MATCH_1}")
+            endif()
+            list(APPEND translated_sources "${source}")
+        endforeach()
+        set_property(TARGET ${region_target} PROPERTY SOURCES "${translated_sources}")
+        target_compile_definitions(${region_target} PRIVATE XERENGE_GAME_KOREA=1)
+        target_include_directories(${region_target} BEFORE PRIVATE "${korean_sources}")
+    endforeach()
 endif()

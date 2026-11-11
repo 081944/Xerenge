@@ -45,6 +45,7 @@ class InstallerWindow : public QWidget {
   // An installed copy at the install path turns Install into Update: the disc
   // image is not needed, and its xerenge.conf settings are shown to keep.
   void RefreshInstallState();
+  void RefreshLanguageOptions(const QString& game_dir);
   void LoadSettings(const QString& path);
   void StartInstall();
   void Refuse(const QString& message);
@@ -65,6 +66,7 @@ class InstallerWindow : public QWidget {
   bool LocatePayload(QString* error);
   QString CopyRuntime(const std::function<void(double)>& progress) const;
   static bool IsUsGame(const QString& game_dir);
+  static bool IsKoreanGame(const QString& game_dir);
   QString WriteSettings() const;
   QString CreateShortcuts() const;
 

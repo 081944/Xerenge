@@ -53,6 +53,8 @@ using winrt::Windows::UI::Core::CoreWindow;
 // The American image's default.xex (installer_window.cpp).
 constexpr const char* kXexSha256Us =
     "5258c75d9ae649ed4fb71d4e2fe8808545db16092cfe764ea1a2504f5aae2e2d";
+constexpr const char* kXexSha256Kr =
+    "a847b760d87c5a5403f1db2913383de1c84537ca70e2714c04024c835ef3fcd1";
 
 // Waits for an operation on the UI thread, keeping its events going: the
 // dialog and the picker are drawn by them.
@@ -443,9 +445,14 @@ void WriteInitialSettings(const std::filesystem::path& path) {
 bool InstallGame(const std::filesystem::path& game_dir) {
   InstallLog("install: no game found; installing into " + game_dir.string());
   for (;;) {
-    if (!Ask(L"Xerenge needs the Burnout Revenge disc image (the European release, .iso). "
-             L"Put it on a USB drive and choose it next; the game is copied out of it once.",
-             L"Choose the image", L"Quit")) {
+#if defined(XERENGE_GAME_KOREA)
+    const wchar_t* prompt = L"Xerenge needs the Korean Burnout Revenge disc image (.iso). "
+                            L"Put it on a USB drive and choose it next; the game is copied out of it once.";
+#else
+    const wchar_t* prompt = L"Xerenge needs the European Burnout Revenge disc image (.iso). "
+             L"Put it on a USB drive and choose it next; the game is copied out of it once.";
+#endif
+    if (!Ask(prompt, L"Choose the image", L"Quit")) {
       return false;
     }
     winrt::Windows::Storage::Pickers::FileOpenPicker picker;
@@ -507,10 +514,20 @@ bool InstallGame(const std::filesystem::path& game_dir) {
     }
     if (error.empty()) {
       std::string digest;
-      if (Sha256FileHex((partial / "default.xex").string(), &digest, nullptr) &&
-          digest == kXexSha256Us) {
-        error = "it is the American release; this build is made from the European one";
+      if (!Sha256FileHex((partial / "default.xex").string(), &digest, nullptr)) {
+        error = "cannot hash default.xex";
       }
+#if defined(XERENGE_GAME_KOREA)
+      else if (digest != kXexSha256Kr) {
+        error = "this build requires the Korean retail disc";
+      }
+#else
+      else if (digest == kXexSha256Us) {
+        error = "it is the American release; this build is made from the European one";
+      } else if (digest == kXexSha256Kr) {
+        error = "it is the Korean release; a Korean build is required";
+      }
+#endif
     }
     if (!error.empty()) {
       std::filesystem::remove_all(partial, ec);

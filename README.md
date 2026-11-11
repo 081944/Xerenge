@@ -7,15 +7,18 @@ no CPU interpreter and no JIT.
 
 **Supported releases:** Burnout Revenge (Europe) and, since 0.4.7, Burnout
 Revenge (USA) - both officially, tested end to end: menus, races, Crash mode,
-replays, widescreen and the logo skip. Other dumps (the beta, other regions)
-are not.
+replays, widescreen and the logo skip. This checkout also adds a separate
+Korean retail (En/Zh/Ko) build, with English, Traditional Chinese and Korean
+selection; see [Korean release support](docs/korean-release.md) for its current
+validation status. Other dumps, including the beta, remain unsupported.
 
 ## Getting it running
 
-You need a dump of the retail European or American release - the image
+You need a dump of the retail European, American or Korean release - the image
 hashing to `34c1bd4d549c2c53f29d814fa5e5d1c04c533c5ca0c39e57b6c2538f44ff59b4`
 (Europe) or `7abf689f52b70666ba92052bd157cfcae9ed6290dae298fbf639baa1d169f92b`
-(USA) - and a machine with Vulkan. The two are not the same build (the
+(USA), or `94ecd97fe1478e099e747a72e00da1e84cc829b7ae80a815283134884ee49849`
+(Korea) - and a machine with Vulkan. These are separate builds (the
 territory is compiled into the code), so each gets a game generated from its
 own `default.xex`; SETUP.md has the detail.
 

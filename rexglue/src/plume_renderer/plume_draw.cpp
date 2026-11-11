@@ -2745,7 +2745,13 @@ bool PlumeDrawContext::Initialize(plume::RenderDevice* device) {
     static const bool force_bc = std::getenv("XERENGE_FORCE_BC") != nullptr;
     bc_supported_ = probe && VulkanTextureOk(probe.get()) && (!no_bc_feature || force_bc) &&
                     std::getenv("XERENGE_NO_BC") == nullptr;
-    if (!bc_supported_) {
+    // Some Adreno drivers accept BC1/BC3 without advertising the full BC
+    // feature, but silently fail to sample BC2. The Korean SKU's CJK fonts
+    // use BC2 (the English fonts use RGBA), leaving every letter invisible.
+    // Keep the working BC formats native and convert BC2 alone on such GPUs.
+    bc2_supported_ = bc_supported_ &&
+                     (device_->getCapabilities().textureCompressionBC || force_bc);
+    if (!bc_supported_ || !bc2_supported_) {
       // Phones take ETC2 instead: re-encoded on the processor, still 4 bits a texel.
       // XERENGE_NO_ETC2=1 keeps the RGBA8 fallback, for comparing the two.
       const auto etc2 = std::getenv("XERENGE_NO_ETC2") == nullptr
@@ -2753,7 +2759,8 @@ bool PlumeDrawContext::Initialize(plume::RenderDevice* device) {
                                   4, 4, 1, plume::RenderFormat::ETC2_RGBA8_UNORM))
                             : nullptr;
       etc2_supported_ = etc2 && VulkanTextureOk(etc2.get());
-      REXLOG_INFO("plume: this GPU has no BC (DXT) textures; they are {} on the processor",
+      REXLOG_INFO("plume: {} textures are {} on the processor",
+                  bc_supported_ ? "BC2 (DXT3)" : "BC (DXT)",
                   etc2_supported_ ? "re-encoded as ETC2" : "decoded to RGBA8");
     }
   }
@@ -7350,9 +7357,9 @@ void PlumeDrawContext::BindGuestTextures(plume::RenderCommandList* list,
       }
       // A GPU without BC (DXT) textures - Mali, and most phones' drivers: the
       // blocks are decoded here into RGBA8, every mip with them.
-      if (!bc_supported_ && (host_format == plume::RenderFormat::BC1_UNORM ||
-                             host_format == plume::RenderFormat::BC2_UNORM ||
-                             host_format == plume::RenderFormat::BC3_UNORM)) {
+      if ((!bc_supported_ && (host_format == plume::RenderFormat::BC1_UNORM ||
+                              host_format == plume::RenderFormat::BC3_UNORM)) ||
+          (!bc2_supported_ && host_format == plume::RenderFormat::BC2_UNORM)) {
         const uint32_t block_bytes = base_fmt == TextureFormat::k_DXT1 ? 8u : 16u;
         std::vector<uint8_t> decoded;
         int etc2_alpha = -1;

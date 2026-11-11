@@ -218,7 +218,6 @@ namespace {
 constexpr uint32_t kPopupService = 0x82A52288;  // holds the service's address
 constexpr uint32_t kEmptyTitle = 0x82010E58;    // "", the title the game's popups have
 constexpr uint32_t kPopupButtons = 4;           // ePopupType_YesNo (Cafe.bin's popup manager): A and B
-bool g_visited_pages = false;                   // our pages were opened since Settings was
 bool g_popup_pending = false;                   // the popup to ask for at the next frame
 int g_achievement_popup = -1;                   // the achievement whose popup to show next
 constexpr uint32_t kPopupOk = 1;                // ePopupType_OK: A alone, "OK"
@@ -382,7 +381,6 @@ REX_HOOK_RAW(sub_821EC580) {
   }
   if (option > kOurOptions && option <= kOurOptions + 3) {
     settings::SetPage(settings::Page(option - kOurOptions));
-    g_visited_pages = true;
     REXLOG_INFO("menu: Xerenge settings page {}", option - kOurOptions);
     ShowSettings(base);
     return;
@@ -393,12 +391,10 @@ REX_HOOK_RAW(sub_821EC580) {
       ShowSettings(base);
       return;
     }
-    // Leaving Settings: the restart popup, if our pages were opened and a
-    // change wants a start; its answer goes on from there.
+    // Native language is on the main Settings page, so a change can require
+    // restart even when none of the additional graphics pages were visited.
     const bool restart = settings::TakeRestartNeeded();
-    const bool visited = g_visited_pages;
-    g_visited_pages = false;
-    if (restart && visited && XerengeCanRestart()) {
+    if (restart && XerengeCanRestart()) {
       // Not from here, inside the interface's code: asked for before it runs next (below).
       g_popup_pending = true;
       return;
@@ -424,10 +420,10 @@ REX_HOOK_RAW(sub_821E6BA8) {
     g_on_main_menu = next.size() >= 14 && next.compare(next.size() - 14, 14, "/Main/MainMenu") == 0;
     xerenge::music::SetSongManagerShown(next.size() >= 19 &&
                                         next.compare(next.size() - 19, 19, "DriverDetailsEATrax") == 0);
-    constexpr uint32_t kMusic = 0x8268748C;  // the soundtrack's state; +780: paused for a video
+    const uint32_t kMusic = xerenge::music::PlaybackState();
     const bool left_video = on_show.size() > 5 && on_show.compare(on_show.size() - 5, 5, "Video") == 0 &&
                             next != on_show;
-    if (left_video && LoadU32(base, kMusic + 780) != 0) {
+    if (left_video && kMusic && LoadU32(base, kMusic + 780) != 0) {
       REXLOG_INFO("menu: music resumed, leaving {}", on_show);
       const PPCContext saved = ctx;
       ctx.r3.u64 = kMusic;

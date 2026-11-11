@@ -754,6 +754,7 @@ class PlumeDrawContext {
   // Whether the GPU takes BC (DXT) textures; without, they become ETC2 where
   // it takes that (TranscodeBcToEtc2), RGBA8 otherwise.
   bool bc_supported_ = true;
+  bool bc2_supported_ = true;
   bool etc2_supported_ = false;
   // XERENGE_FRAME_PROBE: the middle of what a resolve copies from, read back a few
   // frames later - whether the draws themselves came out black (ResolveRenderTarget).

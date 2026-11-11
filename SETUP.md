@@ -5,14 +5,15 @@ on the machine this was developed on; nothing is assumed.
 
 ## What you need
 
-**The game.** A dump of one of the two retail releases this project knows:
+**The game.** A dump of one of the three retail releases this checkout recognises:
 
 | | image size | SHA-256 of the image |
 |---|---|---|
 | Burnout Revenge (Europe) | 7,834,892,288 bytes | `34c1bd4d549c2c53f29d814fa5e5d1c04c533c5ca0c39e57b6c2538f44ff59b4` |
 | Burnout Revenge (USA) | 7,834,892,288 bytes | `7abf689f52b70666ba92052bd157cfcae9ed6290dae298fbf639baa1d169f92b` |
+| Burnout Revenge (Korea) (En,Zh,Ko) | 7,834,892,288 bytes | `94ecd97fe1478e099e747a72e00da1e84cc829b7ae80a815283134884ee49849` |
 
-The two executables lay their code out alike - every function at the same
+The European and American executables lay their code out alike - every function at the same
 address, so `rexglue/functions.toml` and the addresses the runtime hooks hold
 for both - but they are not the same build: the territory each was made for is
 compiled into the code. The European one takes its language from the console
@@ -21,6 +22,12 @@ only and plays the NTSC ones (`*_N.xmv`), which is all its disc carries. So the
 game is generated from the `default.xex` of your own disc, and a build made from
 one release does not run the other's: the European build on the American disc
 stops at once, asking for `Language/Strings/MainUK.bin`.
+
+The Korean executable has a different layout and uses `functions_kr.toml`
+and its own host address map, selected automatically by the manifest patcher.
+It keeps its original English, Traditional Chinese and Korean resources and
+offers those three languages in Settings. Korean builds require Python 3;
+see [Korean release support](docs/korean-release.md) for build and validation details.
 
 Another dump is not necessarily unusable, but `rexglue/functions.toml` names
 function addresses found in these images, and they will not line up with a

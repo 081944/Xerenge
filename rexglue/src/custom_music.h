@@ -5,6 +5,9 @@
 
 namespace xerenge::music {
 
+// Captured from the title's music-update receiver, independent of image layout.
+uint32_t PlaybackState();
+
 // The music folder's songs chosen in Song Manager, in place of EA Trax.
 bool Custom();
 

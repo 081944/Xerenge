@@ -18,6 +18,7 @@ game=${2:-$root/game}
 # Burnout Revenge (Europe) and Burnout Revenge (USA).
 RETAIL_SHA256_EU=34c1bd4d549c2c53f29d814fa5e5d1c04c533c5ca0c39e57b6c2538f44ff59b4
 RETAIL_SHA256_US=7abf689f52b70666ba92052bd157cfcae9ed6290dae298fbf639baa1d169f92b
+RETAIL_SHA256_KR=94ecd97fe1478e099e747a72e00da1e84cc829b7ae80a815283134884ee49849
 
 if [ -z "$image" ]; then
     echo "give the path to a disc image" >&2
@@ -38,7 +39,7 @@ if [ -f "$game/default.xex" ]; then
     echo "already extracted, skipping"
 else
     "$root/scripts/extract-image" --sha256 "$RETAIL_SHA256_EU" \
-        --sha256 "$RETAIL_SHA256_US" "$image" "$game"
+        --sha256 "$RETAIL_SHA256_US" --sha256 "$RETAIL_SHA256_KR" "$image" "$game"
 fi
 
 echo

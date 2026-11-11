@@ -1,0 +1,37 @@
+# Korean retail function overrides; addresses only, no game code.
+[functions]
+0x82578CA0 = { size = 0x14 }
+0x82579CD0 = { size = 0xC8 }
+0x82579088 = { size = 0x1C }
+0x82362E88 = { size = 0x8 }
+0x82582098 = { size = 0x8 }
+0x82363B28 = { size = 0x30 }
+0x823889B8 = { name = "Direct3D_CreateDevice" }
+0x82388D60 = { name = "D3DDevice_Swap" }
+0x82381310 = { name = "D3DDevice_ClearF" }
+0x82383298 = { name = "D3DDevice_BlockUntilIdle" }
+0x8237AB50 = { name = "D3DDevice_SetVertexShader" }
+0x8237A7E0 = { name = "D3DDevice_SetPixelShader" }
+0x8237AF30 = { name = "D3DDevice_SetVertexDeclaration" }
+0x8237D998 = { name = "D3DDevice_SetStreamSource" }
+0x8237DA98 = { name = "D3DDevice_SetIndices" }
+0x82380590 = { name = "D3DDevice_SetTexture" }
+0x8237DFD8 = { name = "D3DDevice_SetRenderTarget" }
+0x82380080 = { name = "D3DDevice_CreateTexture" }
+0x823846D8 = { name = "D3DDevice_CreateVertexBuffer" }
+0x82384808 = { name = "D3DDevice_CreateIndexBuffer" }
+0x8237ABB8 = { name = "D3DDevice_CreateVertexDeclaration" }
+0x823806E8 = { name = "D3DDevice_BeginVertices" }
+0x82380A10 = { name = "D3DDevice_DrawVertices" }
+0x82380C50 = { name = "D3DDevice_DrawIndexedVertices" }
+0x82380988 = { name = "D3DDevice_DrawVerticesUP" }
+0x823838C8 = { name = "D3DDevice_BeginTiling" }
+0x82383D00 = { name = "D3DDevice_EndTiling" }
+0x82381BD8 = { name = "D3D_BlockOnPrimaryRange" }
+0x823829A0 = { name = "D3D_BlockOnFence" }
+0x82383048 = { name = "D3D_KickOff" }
+0x82382CC0 = { name = "D3D_MakeSpace" }
+0x82597C90 = { size = 0x10 }
+0x823D9440 = { size = 0x18 }
+0x820FA2A0 = { size = 0x8 }
+0x8243C9D0 = { size = 0x38 }

@@ -10,6 +10,7 @@ namespace xerenge::plume_d3d {
 
 constexpr uint32_t kD3DDeviceAllocSize = 0x5000;
 
+#if !defined(XERENGE_GAME_KOREA)
 constexpr uint32_t kRenderStateTableGuestAddr = 0x82751D68;
 constexpr uint32_t kRenderStateTableEntries = 0x61;
 constexpr uint32_t kRenderStateDispatchOffset = 56;
@@ -19,6 +20,7 @@ constexpr uint32_t kSamplerStateTableGuestAddr = 0x827521F8;
 constexpr uint32_t kSamplerStateTableEntries = 0x14;
 constexpr uint32_t kSamplerStateDispatchOffset = 444;
 constexpr uint32_t kSamplerStateDefaultOffset = 912;
+#endif
 
 constexpr uint32_t kBlendControlNoBlend = 0x00010001;
 
@@ -43,6 +45,7 @@ constexpr uint32_t kGuestShaderObjectSize = 24;
 // larger functions). Patched at runtime via FunctionDispatcher::SetFunction.
 constexpr uint32_t kBeginVerticesGuestAddr = 0x8248F6F0;
 constexpr uint32_t kEndVerticesGuestAddr = 0x8248FBA8;
+#if !defined(XERENGE_GAME_KOREA)
 constexpr uint32_t kRingBufferAllocGuestAddr = 0x8246DE10;
 constexpr uint32_t kBeginRingAllocGuestAddr = 0x8246E018;
 constexpr uint32_t kRingBufferSubmitBatchGuestAddr = 0x8246E100;
@@ -53,6 +56,7 @@ constexpr uint32_t kInsertFenceGuestAddr = 0x8246ED38;
 constexpr uint32_t kBlockUntilIdleGuestAddr = 0x8246EEB8;
 constexpr uint32_t kSetRingBufferParametersGuestAddr = 0x8246EF88;
 constexpr uint32_t kRingBufferPollReadyGuestAddr = 0x8246B408;
+#endif
 
 void InstallPlumeRuntimeHooks();
 

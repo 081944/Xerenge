@@ -19,7 +19,7 @@ set -e
 root=$(cd "$(dirname "$0")/.." && pwd)
 project="$root/rexglue"
 app="$project/android"
-build="$project/build-android"
+build=${XERENGE_ANDROID_BUILD:-$project/build-android}
 sdl_java="$root/rexglue-sdk/thirdparty/sdl3/android-project/app/src/main/java"
 runtime_libs="$root/rexglue-sdk/out/android-arm64"
 
@@ -52,7 +52,7 @@ javac -nowarn -Xlint:none -source 17 -target 17 -encoding UTF-8 \
     $(find "$out/classes" -name '*.class')
 
 echo "== native libraries"
-for lib in "$build/libmain_eu.so" "$build/librexgpu-plume.so" "$runtime_libs/librexruntime.so" \
+for lib in "$build/librexgpu-plume.so" "$runtime_libs/librexruntime.so" \
            "$ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so"; do
     [ -f "$lib" ] || { echo "missing: $lib" >&2; exit 1; }
     cp "$lib" "$out/pack/lib/arm64-v8a/"
@@ -67,9 +67,17 @@ for lib in "$build/libxerenge_installer.so" \
     [ -f "$lib" ] || { echo "missing: $lib" >&2; exit 1; }
     cp "$lib" "$out/pack/lib/arm64-v8a/"
 done
-if [ -f "$project/build-android-us/libmain_us.so" ]; then
-    cp "$project/build-android-us/libmain_us.so" "$out/pack/lib/arm64-v8a/"
-fi
+game_count=0
+for release in eu us kr; do
+    for lib in "$build/libmain_$release.so" "$project/build-android-$release/libmain_$release.so"; do
+        if [ -f "$lib" ]; then
+            cp "$lib" "$out/pack/lib/arm64-v8a/"
+            game_count=$((game_count + 1))
+            break
+        fi
+    done
+done
+[ "$game_count" -gt 0 ] || { echo "no compiled game library in $build" >&2; exit 1; }
 [ -f "$runtime_libs/libTracyClient.so" ] && cp "$runtime_libs/libTracyClient.so" "$out/pack/lib/arm64-v8a/"
 if [ -n "$VALIDATION_LAYER" ]; then
     cp "$VALIDATION_LAYER" "$out/pack/lib/arm64-v8a/libVkLayer_khronos_validation.so"

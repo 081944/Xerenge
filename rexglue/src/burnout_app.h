@@ -23,10 +23,25 @@ class BurnoutApp : public rex::ReXApp {
         PPCImageConfig));
   }
 
-  void OnPreSetup(rex::RuntimeConfig&) override { xerenge::settings::ApplyAtStart(); }
+  void OnPreSetup(rex::RuntimeConfig&) override {
+    // The renderer DLL is shared by every territory in an installer payload.
+    // Publish title-specific data addresses from the matching host executable.
+    const std::string request = std::to_string(0x825EF480u);
+#if defined(_WIN32)
+    _putenv_s("XERENGE_CLIP_REQUEST_ADDRESS", request.c_str());
+#else
+    setenv("XERENGE_CLIP_REQUEST_ADDRESS", request.c_str(), 1);
+#endif
+    xerenge::settings::ApplyAtStart();
+  }
 
   // Which build this is, first in the log: a report then says it by itself.
-  void OnPostInitLogging() override { REXLOG_INFO("Xerenge {} ({})", XERENGE_VERSION, XERENGE_COMMIT); }
+  void OnPostInitLogging() override {
+    REXLOG_INFO("Xerenge {} ({})", XERENGE_VERSION, XERENGE_COMMIT);
+#if defined(XERENGE_GAME_KOREA)
+    REXLOG_INFO("release: Korean retail (English / Traditional Chinese / Korean)");
+#endif
+  }
 
   void OnPostSetup() override {
     XerengeAchievementToastStart();

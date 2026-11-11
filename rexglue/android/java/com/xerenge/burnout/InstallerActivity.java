@@ -378,7 +378,7 @@ public class InstallerActivity extends Activity {
         // The game asks for its language at every start unless one is set here.
         LinearLayout languageRow = row(page);
         label(languageRow, getString(R.string.language), 15, false, Color.WHITE).setPadding(0, 0, dp(12), 0);
-        languageSpinner = spinner(languageRow, Settings.LANGUAGES, getString(R.string.language_ask));
+        languageSpinner = spinner(languageRow, Settings.languages(this), getString(R.string.language_ask));
 
         // Hacks: folded away, each trading something for speed on a slow machine.
         Button hacksToggle = new Button(this);
@@ -531,7 +531,7 @@ public class InstallerActivity extends Activity {
         bloomBox.setChecked(s.bloom);
         blurBox.setChecked(s.motionBlur);
         debugBox.setChecked(s.debug);
-        int language = indexOf(Settings.LANGUAGES, s.language);
+        int language = indexOf(Settings.languages(this), s.language);
         languageSpinner.setSelection(language >= 0 ? language : 1);
         asyncBox.setChecked(s.asyncPresent);
         earlySubmitBox.setChecked(s.earlySubmit);
@@ -577,7 +577,7 @@ public class InstallerActivity extends Activity {
         s.xenia = false;
         s.windowed = false;
         s.debug = debugBox.isChecked();
-        s.language = Settings.LANGUAGES[languageSpinner.getSelectedItemPosition()][1];
+        s.language = Settings.languages(this)[languageSpinner.getSelectedItemPosition()][1];
         s.gamertag = gamertagEdit.getText().toString().trim();
         String server = serverEdit.getText().toString().trim();
         s.lobbyServer = server;
@@ -851,9 +851,9 @@ public class InstallerActivity extends Activity {
             }
             // The American release runs its own build of the game; an APK
             // made without the American files carries only the European one.
-            if (Settings.usGame(this) && !hasLibrary("main_us")) {
+            if (!hasLibrary(Settings.gameLibrary(this))) {
                 finishInstall(getString(R.string.step_failed, getString(R.string.step_extract),
-                        getString(R.string.no_usa_build)));
+                        "This package has no build for this disc: " + Settings.gameLibrary(this)));
                 return;
             }
             if (chosen.etc2Textures) {

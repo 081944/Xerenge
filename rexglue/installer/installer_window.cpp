@@ -47,8 +47,11 @@ constexpr const char* kRetailSha256Eu =
     "34c1bd4d549c2c53f29d814fa5e5d1c04c533c5ca0c39e57b6c2538f44ff59b4";
 constexpr const char* kRetailSha256Us =
     "7abf689f52b70666ba92052bd157cfcae9ed6290dae298fbf639baa1d169f92b";
+constexpr const char* kRetailSha256Kr =
+    "94ecd97fe1478e099e747a72e00da1e84cc829b7ae80a815283134884ee49849";
 constexpr int kImageFilesEu = 832;
 constexpr int kImageFilesUs = 803;
+constexpr int kImageFilesKr = 956;
 // The American image's default.xex. Its code lies where the European one's
 // does, but the territory it was built for is compiled into it - the language,
 // the PAL or NTSC videos - so it gets a build of its own: the payload's
@@ -56,6 +59,8 @@ constexpr int kImageFilesUs = 803;
 // installation whose image is already extracted is told apart as well.
 constexpr const char* kXexSha256Us =
     "5258c75d9ae649ed4fb71d4e2fe8808545db16092cfe764ea1a2504f5aae2e2d";
+constexpr const char* kXexSha256Kr =
+    "a847b760d87c5a5403f1db2913383de1c84537ca70e2714c04024c835ef3fcd1";
 
 constexpr const char* kDesktopId = "xerenge-burnout-revenge.desktop";
 
@@ -378,6 +383,8 @@ InstallerWindow::InstallerWindow(QWidget* parent) : QWidget(parent) {
   language_combo_->addItem(tr("Ask at every start"), QString());
   language_combo_->addItem("English", "0");
   language_combo_->addItem("English (US)", "1");
+  language_combo_->addItem(QString::fromUtf8("繁體中文"), "8");
+  language_combo_->addItem(QString::fromUtf8("한국어"), "7");
   language_combo_->addItem("Espa\u00f1ol", "5");
   language_combo_->addItem("Nederlands", "10");
   language_combo_->addItem("Svenska", "11");
@@ -735,6 +742,7 @@ void InstallerWindow::BrowseInstallPath() {
 
 void InstallerWindow::RefreshInstallState() {
   const QDir install(QDir(path_edit_->text().trimmed()).absolutePath());
+  RefreshLanguageOptions(install.filePath("game"));
   const bool installed = QFileInfo::exists(install.filePath("game/default.xex")) &&
                          QFileInfo::exists(install.filePath("xerenge.conf"));
   static QString loaded_from;
@@ -749,6 +757,29 @@ void InstallerWindow::RefreshInstallState() {
   SetStatus(installed ? tr("The game is installed here: Update replaces the program and keeps "
                            "the game files and these settings. No disc image is needed.")
                       : tr("Ready."));
+}
+
+void InstallerWindow::RefreshLanguageOptions(const QString& game_dir) {
+  const QString selected = language_combo_->currentData().toString();
+  const bool korea = IsKoreanGame(game_dir);
+  language_combo_->clear();
+  if (korea) {
+    language_combo_->addItem("English", "1");
+    language_combo_->addItem(QString::fromUtf8("繁體中文"), "8");
+    language_combo_->addItem(QString::fromUtf8("한국어"), "7");
+  } else {
+    language_combo_->addItem(tr("Ask at every start"), QString());
+    language_combo_->addItem("English", "0");
+    language_combo_->addItem("English (US)", "1");
+    language_combo_->addItem(QString::fromUtf8("繁體中文"), "8");
+    language_combo_->addItem(QString::fromUtf8("한국어"), "7");
+    language_combo_->addItem("Espa\u00f1ol", "5");
+    language_combo_->addItem("Nederlands", "10");
+    language_combo_->addItem("Svenska", "11");
+    language_combo_->addItem("Suomi", "12");
+  }
+  const int index = language_combo_->findData(korea && selected == "0" ? "8" : selected);
+  language_combo_->setCurrentIndex(index >= 0 ? index : 1);
 }
 
 // The settings of an installed copy, back into the controls, so an update
@@ -1048,6 +1079,7 @@ void InstallerWindow::StartInstall() {
                      auto image_files = std::make_shared<int>(kImageFilesEu);
                      RunProcess(extract_tool,
                                 {"--sha256", kRetailSha256Eu, "--sha256", kRetailSha256Us,
+                                 "--sha256", kRetailSha256Kr,
                                  image_path_, game_dir},
                                 [this, checking, written, image_files](const QString& line) {
                                   if (auto m = checking.match(line); m.hasMatch()) {
@@ -1056,6 +1088,8 @@ void InstallerWindow::StartInstall() {
                                                   .arg(m.captured(1)));
                                   } else if (line.contains(kRetailSha256Us)) {
                                     *image_files = kImageFilesUs;
+                                  } else if (line.contains(kRetailSha256Kr)) {
+                                    *image_files = kImageFilesKr;
                                   } else if (auto w = written.match(line); w.hasMatch()) {
                                     const int files = w.captured(1).toInt();
                                     const int total = *image_files;
@@ -1069,12 +1103,13 @@ void InstallerWindow::StartInstall() {
                    }});
   }
   steps_.append({tr("Copying the game"), 3, [this] {
+                   RefreshLanguageOptions(QDir(install_dir_).filePath("game"));
                    if (!log_path_.isEmpty()) {
                      QFile log(log_path_);
                      if (log.open(QIODevice::Append | QIODevice::Text)) {
                        const bool usa = IsUsGame(QDir(install_dir_).filePath("game"));
                        log.write(QString("\ncopying the game built for the %1 release\n")
-                                     .arg(usa ? "American" : "European")
+                                     .arg(IsKoreanGame(QDir(install_dir_).filePath("game")) ? "Korean" : usa ? "American" : "European")
                                      .toUtf8());
                      }
                    }
@@ -1235,8 +1270,13 @@ QString InstallerWindow::CopyRuntime(const std::function<void(double)>& progress
   const QString game = QString("burnout") + kExe;
   const QString game_eu = QString("burnout_eu") + kExe;
   const QString game_us = QString("burnout_us") + kExe;
+  const QString game_kr = QString("burnout_kr") + kExe;
   const bool us = IsUsGame(QDir(install_dir_).filePath("game"));
-  const QString chosen = from.filePath(us ? game_us : game_eu);
+  const bool kr = IsKoreanGame(QDir(install_dir_).filePath("game"));
+  const QString chosen = from.filePath(kr ? game_kr : us ? game_us : game_eu);
+  if (kr && !QFileInfo::exists(chosen)) {
+    return tr("the disc is the Korean release, but this installer has no Korean build (%1 is missing)").arg(chosen);
+  }
   if (us && !QFileInfo::exists(chosen)) {
     return tr("the disc is the American release, and this installer carries the game built "
               "for the European one only (%1 is missing)")
@@ -1247,7 +1287,7 @@ QString InstallerWindow::CopyRuntime(const std::function<void(double)>& progress
     return tr("%1 is empty").arg(from.absolutePath());
   }
   for (int i = 0; i < files.size(); ++i) {
-    if (files[i] == game_eu || files[i] == game_us) {
+    if (files[i] == game_eu || files[i] == game_us || files[i] == game_kr) {
       continue;
     }
     const QString target = to.filePath(files[i]);
@@ -1277,6 +1317,13 @@ bool InstallerWindow::IsUsGame(const QString& game_dir) {
     return false;
   }
   return hash.result().toHex() == kXexSha256Us;
+}
+
+bool InstallerWindow::IsKoreanGame(const QString& game_dir) {
+  QFile xex(QDir(game_dir).filePath("default.xex"));
+  if (!xex.open(QIODevice::ReadOnly)) return false;
+  QCryptographicHash hash(QCryptographicHash::Sha256);
+  return hash.addData(&xex) && hash.result().toHex() == kXexSha256Kr;
 }
 
 QString InstallerWindow::WriteSettings() const {

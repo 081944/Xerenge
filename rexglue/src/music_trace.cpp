@@ -12,6 +12,7 @@
 // when something changes: whether the press is seen, the action's pad
 // binding, and the update's fields.
 #include <cstdint>
+#include <atomic>
 #include <cstdio>
 #include <cstdlib>
 #include <chrono>
@@ -25,6 +26,15 @@
 #include <rex/ppc.h>
 
 #include "guest_memory.h"
+#include "custom_music.h"
+
+namespace {
+std::atomic<uint32_t> g_playback_state{0};
+}
+
+uint32_t xerenge::music::PlaybackState() {
+  return g_playback_state.load(std::memory_order_relaxed);
+}
 
 extern "C" void __imp__sub_8210F940(PPCContext& __restrict, uint8_t*);
 extern "C" void __imp__sub_822CB4F0(PPCContext& __restrict, uint8_t*);
@@ -116,6 +126,7 @@ REX_HOOK_RAW(sub_8210F940) {
 
 REX_HOOK_RAW(sub_822CB4F0) {
   const uint32_t music = ctx.r3.u32;
+  g_playback_state.store(music, std::memory_order_relaxed);
   // XERENGE_DUMP_IMAGE=<file>: the title's loaded image (82000000-82DA0000) written once,
   // for looking up its strings and data offline.
   static bool dumped = false;

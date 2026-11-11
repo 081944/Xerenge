@@ -1,0 +1,1234 @@
+{
+  "82000000": {
+    "target": "82000000",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82010E58": {
+    "target": "82010F20",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82011A24": {
+    "target": "82011B34",
+    "evidence": "unique-identical-string"
+  },
+  "82011A40": {
+    "target": "820163D4",
+    "evidence": "unique-identical-string"
+  },
+  "82011A80": {
+    "target": "82016444",
+    "evidence": "unique-identical-string"
+  },
+  "8202E19C": {
+    "target": "8202E2AC",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82032D50": {
+    "target": "82032E60",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82033FA4": {
+    "target": "820340B4",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82033FB0": {
+    "target": "820340C0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82036178": {
+    "target": "82036288",
+    "evidence": "unique-identical-string"
+  },
+  "820AD618": {
+    "target": "820AD618",
+    "evidence": "unique-full-function-normalized"
+  },
+  "820B4BC0": {
+    "target": "820B4BC0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "820EE348": {
+    "target": "820EE400",
+    "evidence": "unique-full-function-normalized"
+  },
+  "820FA1D8": {
+    "target": "820FA2A0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82103ED8": {
+    "target": "82104698",
+    "evidence": "matched-caller-47-votes"
+  },
+  "8210B3C8": {
+    "target": "8210B3E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8210D8F0": {
+    "target": "8210D948",
+    "evidence": "matched-caller-3-votes"
+  },
+  "8210E1F0": {
+    "target": "8210E248",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8210F940": {
+    "target": "8210F998",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8210FA20": {
+    "target": "8210FA78",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8210FCF8": {
+    "target": "8210FD50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8211F448": {
+    "target": "8211F720",
+    "evidence": "matched-caller-1-votes"
+  },
+  "8212BB98": {
+    "target": "821F6350",
+    "evidence": "matched-caller-216-votes"
+  },
+  "82142CD8": {
+    "target": "82142F50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821436D0": {
+    "target": "82143948",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821439E8": {
+    "target": "82143C60",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82144AE0": {
+    "target": "82144D58",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8215B068": {
+    "target": "8215B340",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8215B940": {
+    "target": "8215BC18",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8215C0E8": {
+    "target": "8215C3C0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82160078": {
+    "target": "82160350",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82160138": {
+    "target": "82160410",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "821632E0": {
+    "target": "821635B8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82173190": {
+    "target": "82173468",
+    "evidence": "bounded-neighbours-alignment-1.0000"
+  },
+  "82182438": {
+    "target": "821826F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82186F30": {
+    "target": "821871E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82187BE0": {
+    "target": "82187E98",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82188F98": {
+    "target": "82189250",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82188FF0": {
+    "target": "821892A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82189238": {
+    "target": "821894F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218AA90": {
+    "target": "8218AD48",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218AFC8": {
+    "target": "8218B280",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218B458": {
+    "target": "8218B710",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218C168": {
+    "target": "8218C420",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218C3C8": {
+    "target": "8218C680",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218DDA8": {
+    "target": "8218E060",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218DF38": {
+    "target": "8218E1F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218E0C8": {
+    "target": "8218E380",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218E128": {
+    "target": "8218E3E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218E248": {
+    "target": "8218E500",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218E730": {
+    "target": "8218E9E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218F0A8": {
+    "target": "8218F360",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218F978": {
+    "target": "8218FC30",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218FC60": {
+    "target": "8218FF18",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8218FD58": {
+    "target": "82190010",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821907B8": {
+    "target": "82190A70",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821931F8": {
+    "target": "821934B0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82197A88": {
+    "target": "82197D40",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8219ACB0": {
+    "target": "8219AF68",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8219FAD0": {
+    "target": "8219FD88",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821A06F8": {
+    "target": "821A09B0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821A1078": {
+    "target": "821A1330",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821A1520": {
+    "target": "821A17D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821A38D8": {
+    "target": "821A3B90",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821A4090": {
+    "target": "821A4348",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821AAB28": {
+    "target": "821AADE0",
+    "evidence": "matched-caller-1-votes"
+  },
+  "821AAB88": {
+    "target": "821AAE40",
+    "evidence": "matched-caller-4-votes"
+  },
+  "821AD188": {
+    "target": "821AD440",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821C7588": {
+    "target": "821C76E8",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "821C84A8": {
+    "target": "821C8608",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "821C8D14": {
+    "target": "821C8CAC",
+    "evidence": "bounded-normalized-96-byte-window"
+  },
+  "821C8E80": {
+    "target": "821C8E18",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "821DF3A8": {
+    "target": "821DF660",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821E6928": {
+    "target": "821E6BE0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821E6BA8": {
+    "target": "821E6E60",
+    "evidence": "matched-caller-1-votes"
+  },
+  "821E95A8": {
+    "target": "821E9860",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821E9638": {
+    "target": "821E98F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821EA3E8": {
+    "target": "821EA690",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821EBDF0": {
+    "target": "821EC0C0",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "821EBE28": {
+    "target": "821EC0F8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821EC110": {
+    "target": "821EC3E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821EC580": {
+    "target": "821EC828",
+    "evidence": "matched-caller-1-votes"
+  },
+  "821EEA68": {
+    "target": "821EED00",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F04B8": {
+    "target": "821F0750",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F0690": {
+    "target": "821F0928",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F3390": {
+    "target": "821F3628",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F5B10": {
+    "target": "821F5DA8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F5FA8": {
+    "target": "821F6240",
+    "evidence": "matched-caller-6-votes"
+  },
+  "821F8590": {
+    "target": "821F8830",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F8650": {
+    "target": "821F88F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821F8748": {
+    "target": "821F89E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FD498": {
+    "target": "821FD738",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FEBC0": {
+    "target": "821FEE60",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FF008": {
+    "target": "821FF2A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FF308": {
+    "target": "821FF5A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FF408": {
+    "target": "821FF6A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "821FF558": {
+    "target": "821FF7F8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822037C0": {
+    "target": "82203AA0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82203D10": {
+    "target": "82203FF0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8220D100": {
+    "target": "8220D370",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82214E88": {
+    "target": "822150F8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822162D0": {
+    "target": "82216540",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82217590": {
+    "target": "82217800",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82218098": {
+    "target": "82218260",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822185D8": {
+    "target": "822187A0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82219488": {
+    "target": "82219658",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221A220": {
+    "target": "8221A3E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221B010": {
+    "target": "8221B1D0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221B1E8": {
+    "target": "8221B3A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221BE38": {
+    "target": "8221C000",
+    "evidence": "matched-caller-7-votes"
+  },
+  "8221C328": {
+    "target": "8221C4F0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221C478": {
+    "target": "8221C640",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221C670": {
+    "target": "8221C838",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8221C6B8": {
+    "target": "8221C880",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82220EF8": {
+    "target": "822210C0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822216C8": {
+    "target": "822218A0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82224DD0": {
+    "target": "82224FA0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82224E78": {
+    "target": "82225048",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82227F98": {
+    "target": "82228168",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82229FA8": {
+    "target": "8222A178",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222A2C8": {
+    "target": "8222A498",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222A508": {
+    "target": "8222A6D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222BFD8": {
+    "target": "8222C1A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222CE98": {
+    "target": "8222D068",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222E8F8": {
+    "target": "8222EAB8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222EAC8": {
+    "target": "8222EC88",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8222FB00": {
+    "target": "8222FCC0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822302E8": {
+    "target": "822304A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82230800": {
+    "target": "822309C0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82230990": {
+    "target": "82230B50",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "822309A4": {
+    "target": "82230B64",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "82230B70": {
+    "target": "82230D30",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82230C10": {
+    "target": "82230DD0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822ADD90": {
+    "target": "822ADF50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822ADE70": {
+    "target": "822AE030",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822AE800": {
+    "target": "822AE9C0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822AE9B8": {
+    "target": "822AEB78",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822AE9F0": {
+    "target": "822AEBB0",
+    "evidence": "bounded-neighbours-alignment-1.0000"
+  },
+  "822CB488": {
+    "target": "822CB648",
+    "evidence": "unique-full-function-normalized"
+  },
+  "822CB4F0": {
+    "target": "822CB6B0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8234B520": {
+    "target": "8234B730",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82353218": {
+    "target": "82353428",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82353340": {
+    "target": "82353550",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "82353BA8": {
+    "target": "82353DB8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82355FD0": {
+    "target": "823561E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82357ADC": {
+    "target": "82357CEC",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "82357CC0": {
+    "target": "82357ED0",
+    "evidence": "matched-caller-4-votes"
+  },
+  "8235DA18": {
+    "target": "8235DC28",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235DA90": {
+    "target": "8235DCA0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235DB20": {
+    "target": "8235DD30",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235DF90": {
+    "target": "8235E1A0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235E100": {
+    "target": "8235E310",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235E2A8": {
+    "target": "8235E4B8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235E678": {
+    "target": "8235E888",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8235E8B0": {
+    "target": "8235EAC0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823610F8": {
+    "target": "82361308",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82362C78": {
+    "target": "82362E88",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "82363918": {
+    "target": "82363B28",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "82363E68": {
+    "target": "82364078",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823648A8": {
+    "target": "82364AB8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82365698": {
+    "target": "823658A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82365758": {
+    "target": "82365968",
+    "evidence": "matched-caller-108-votes"
+  },
+  "82365C40": {
+    "target": "82365E50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82365D60": {
+    "target": "82365F68",
+    "evidence": "matched-caller-3-votes"
+  },
+  "823667E0": {
+    "target": "823669E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82366C90": {
+    "target": "82366E98",
+    "evidence": "matched-caller-10-votes"
+  },
+  "82366CF8": {
+    "target": "82366F00",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82366F78": {
+    "target": "82367180",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823679DC": {
+    "target": "82367BE4",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "82367CF0": {
+    "target": "82367EF8",
+    "evidence": "matched-caller-2-votes"
+  },
+  "82368400": {
+    "target": "82368608",
+    "evidence": "matched-caller-36-votes"
+  },
+  "82368410": {
+    "target": "82368618",
+    "evidence": "matched-caller-3-votes"
+  },
+  "82368590": {
+    "target": "82368798",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236C060": {
+    "target": "8236C268",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236C700": {
+    "target": "8236C908",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236D428": {
+    "target": "8236D630",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236D920": {
+    "target": "8236DB28",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236DE80": {
+    "target": "8236E088",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8236FED0": {
+    "target": "823700D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82370AA0": {
+    "target": "82370CA8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82370EA0": {
+    "target": "823710A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82370F60": {
+    "target": "82371168",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82371300": {
+    "target": "82371508",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82371478": {
+    "target": "82371680",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82372638": {
+    "target": "82372840",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823729E8": {
+    "target": "82372BF0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237A5D8": {
+    "target": "8237A7E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237A948": {
+    "target": "8237AB50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237A9B0": {
+    "target": "8237ABB8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237AD28": {
+    "target": "8237AF30",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237D790": {
+    "target": "8237D998",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237D890": {
+    "target": "8237DA98",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237DDD0": {
+    "target": "8237DFD8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8237FE78": {
+    "target": "82380080",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82380388": {
+    "target": "82380590",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823804E0": {
+    "target": "823806E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82380780": {
+    "target": "82380988",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82380808": {
+    "target": "82380A10",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82380A48": {
+    "target": "82380C50",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82381108": {
+    "target": "82381310",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82381920": {
+    "target": "82381B28",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823819D0": {
+    "target": "82381BD8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382200": {
+    "target": "82382408",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382578": {
+    "target": "82382780",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382710": {
+    "target": "82382918",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382798": {
+    "target": "823829A0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382AB8": {
+    "target": "82382CC0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82382E40": {
+    "target": "82383048",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82383090": {
+    "target": "82383298",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823836C0": {
+    "target": "823838C8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82383AF8": {
+    "target": "82383D00",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823844D0": {
+    "target": "823846D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82384600": {
+    "target": "82384808",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82387920": {
+    "target": "82387B28",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823887B0": {
+    "target": "823889B8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82388B58": {
+    "target": "82388D60",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8238AC88": {
+    "target": "8238AE90",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8238B0F0": {
+    "target": "8238B2F8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8238CD28": {
+    "target": "8238CF30",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823C2CF0": {
+    "target": "823C30B8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "823D9200": {
+    "target": "823D9440",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82404EF8": {
+    "target": "82405128",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82408DF8": {
+    "target": "82409028",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "824095D8": {
+    "target": "82409808",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240A8F0": {
+    "target": "8240AB20",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240BE58": {
+    "target": "8240C088",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240C908": {
+    "target": "8240CB38",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240D398": {
+    "target": "8240D5C8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240EAD8": {
+    "target": "8240ED08",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8240F650": {
+    "target": "8240F880",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82411A58": {
+    "target": "82411C78",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82415E48": {
+    "target": "824160D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824277A0": {
+    "target": "82427AC0",
+    "evidence": "bounded-neighbours-alignment-0.9655"
+  },
+  "82427C40": {
+    "target": "82427F60",
+    "evidence": "bounded-neighbours-alignment-0.9788"
+  },
+  "824288F8": {
+    "target": "82428C10",
+    "evidence": "bounded-neighbours-alignment-0.9873"
+  },
+  "8242B338": {
+    "target": "8242B610",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8242BDB0": {
+    "target": "8242C070",
+    "evidence": "bounded-neighbours-alignment-0.9062"
+  },
+  "8242C678": {
+    "target": "8242C938",
+    "evidence": "bounded-neighbours-alignment-0.9837"
+  },
+  "8243C4A0": {
+    "target": "8243C9D0",
+    "evidence": "bounded-normalized-96-byte-window"
+  },
+  "8246B408": {
+    "target": "8246C3F0",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "8246DE10": {
+    "target": "8246EDF0",
+    "evidence": "aligned-function-instruction-offset"
+  },
+  "8246E018": {
+    "target": "8246EFF8",
+    "evidence": "aligned-function-instruction-offset"
+  },
+  "8246E100": {
+    "target": "8246F0E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8246E158": {
+    "target": "8246F138",
+    "evidence": "reviewed-pdata-entry-between-matched-8246E100-and-8246F6F8"
+  },
+  "8246E618": {
+    "target": "8246F5F8",
+    "evidence": "bounded-normalized-96-byte-window"
+  },
+  "8247BDD8": {
+    "target": "824876C0",
+    "evidence": "reviewed-matched-caller-and-bounded-pdata-entry"
+  },
+  "8247C6C0": {
+    "target": "82488018",
+    "evidence": "reviewed-pdata-entry-between-matched-8247C578-and-8247C850"
+  },
+  "8247ECD8": {
+    "target": "8248A6E0",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "8247EE88": {
+    "target": "8248A8E0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824801A8": {
+    "target": "8248C358",
+    "evidence": "matched-caller-1-votes"
+  },
+  "824822C8": {
+    "target": "8248E480",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824823F0": {
+    "target": "8248E5A8",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "82482430": {
+    "target": "8248E5E8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82482680": {
+    "target": "8248E838",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8248D398": {
+    "target": "82499538",
+    "evidence": "bounded-normalized-96-byte-window"
+  },
+  "8248F6F0": {
+    "target": "8249B890",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "8248FBA8": {
+    "target": "8249BD48",
+    "evidence": "matched-function-instruction-offset"
+  },
+  "824C01F0": {
+    "target": "824CC368",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824C0248": {
+    "target": "824CC3C0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824C02F8": {
+    "target": "824CC470",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824C0358": {
+    "target": "824CC4D0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "824C0590": {
+    "target": "824CC708",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8256C6F0": {
+    "target": "82578CA0",
+    "evidence": "unique-identical-complete-20-byte-leaf"
+  },
+  "8256CF20": {
+    "target": "82579088",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "8256DB78": {
+    "target": "82579CD0",
+    "evidence": "bounded-normalized-96-byte-window"
+  },
+  "82575F38": {
+    "target": "82582098",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "82587570": {
+    "target": "825936D0",
+    "evidence": "matched-caller-4-votes"
+  },
+  "82587A88": {
+    "target": "82593BE8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82588030": {
+    "target": "82594190",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82589140": {
+    "target": "825952A0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825893B0": {
+    "target": "82595510",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82589448": {
+    "target": "825955A8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82589578": {
+    "target": "825956D8",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825895B8": {
+    "target": "82595718",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82589630": {
+    "target": "82595790",
+    "evidence": "unique-full-function-normalized"
+  },
+  "82589658": {
+    "target": "825957B8",
+    "evidence": "matched-caller-1-votes"
+  },
+  "82589708": {
+    "target": "82595868",
+    "evidence": "unique-full-function-normalized"
+  },
+  "8258B610": {
+    "target": "82597770",
+    "evidence": "matched-caller-1-votes"
+  },
+  "8258BB30": {
+    "target": "82597C90",
+    "evidence": "bounded-normalized-32-byte-window"
+  },
+  "8259D2A0": {
+    "target": "825A9400",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825BE2F0": {
+    "target": "825CA458",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825BEB58": {
+    "target": "825CACC0",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825BF2B8": {
+    "target": "825CB418",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825BF3E8": {
+    "target": "825CB548",
+    "evidence": "unique-full-function-normalized"
+  },
+  "825EF480": {
+    "target": "825FF4D0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "825EF481": {
+    "target": "825FF4D1",
+    "evidence": "data-field-offset-from-825EF480"
+  },
+  "825EF484": {
+    "target": "825FF4D4",
+    "evidence": "data-field-offset-from-825EF480"
+  },
+  "82825BCC": {
+    "target": "828360CC",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82846670": {
+    "target": "82856B70",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A52288": {
+    "target": "82A62788",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A522A0": {
+    "target": "82A627A0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A52568": {
+    "target": "82A62A68",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A528B0": {
+    "target": "82A62DB0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A53360": {
+    "target": "82A63860",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A538C0": {
+    "target": "82A63DC0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A5900C": {
+    "target": "82A6950C",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A59E98": {
+    "target": "82A6A398",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82A66880": {
+    "target": "82A76D80",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D18190": {
+    "target": "82D28690",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D2AE28": {
+    "target": "82D3B328",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D39330": {
+    "target": "82D49830",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D39804": {
+    "target": "82D49D04",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D3A1B0": {
+    "target": "82D4A6C0",
+    "evidence": "data-field-offset-from-82D3A1AC"
+  },
+  "82D3E268": {
+    "target": "82D4E848",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D3E6C0": {
+    "target": "82D4ECA0",
+    "evidence": "matched-instruction-address-reference"
+  },
+  "82D3E6C4": {
+    "target": "82D4ECA4",
+    "evidence": "data-field-offset-from-82D3E6C0"
+  },
+  "82D3E6C8": {
+    "target": "82D4ECA8",
+    "evidence": "data-field-offset-from-82D3E6C0"
+  },
+  "82D3E6E8": {
+    "target": "82D4ECC8",
+    "evidence": "matched-instruction-address-reference"
+  }
+}

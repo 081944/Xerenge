@@ -1,4 +1,5 @@
 #include "file_util.hpp"
+#include "sha256.hpp"
 
 #include <iostream>
 #include <string>
@@ -35,6 +36,13 @@ int main(int argc, char** argv) {
         };
         replace_line(&text, "game_root = ", game_line);
         replace_line(&text, "file_path = ", file_line);
+        std::string xex_hash;
+        if (!Sha256FileHex(game + "/default.xex", &xex_hash, nullptr)) {
+            throw std::runtime_error("cannot hash default.xex");
+        }
+        const bool korea = xex_hash == "a847b760d87c5a5403f1db2913383de1c84537ca70e2714c04024c835ef3fcd1";
+        replace_line(&text, "includes = ", korea ? "includes = [\"functions_kr.toml\"]"
+                                                  : "includes = [\"functions.toml\"]");
         WriteFileText(argv[1], text);
     } catch (const std::exception& error) {
         std::cerr << error.what() << "\n";

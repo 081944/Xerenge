@@ -1773,7 +1773,11 @@ void PlumeGraphicsSystem::NoteGuestResolve(uint32_t flags, uint32_t dest_physica
   // title's thread as it asks for the copy - by the time the copy is encoded
   // the title has marked the request done.
   if (memory_) {
-    const auto* request = memory_->TranslateVirtual<const uint8_t*>(0x825EF480u);
+    static const uint32_t request_address = [] {
+      const char* address = std::getenv("XERENGE_CLIP_REQUEST_ADDRESS");
+      return address ? uint32_t(std::strtoul(address, nullptr, 0)) : 0x825EF480u;
+    }();
+    const auto* request = memory_->TranslateVirtual<const uint8_t*>(request_address);
     marker.resolve_writeback = request && request[0] == 1 && request[1] == 0;
   }
   PushMarker(std::move(marker));
